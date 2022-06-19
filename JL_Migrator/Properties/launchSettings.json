@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "JL_Migrator": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

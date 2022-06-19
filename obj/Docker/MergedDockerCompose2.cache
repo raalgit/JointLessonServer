@@ -1,0 +1,72 @@
+name: dockercompose6984636504171924367
+services:
+  jlmigrator:
+    build:
+      context: F:\JointLessonSystem\JLServer
+      dockerfile: JL_Migrator\Dockerfile
+    container_name: jl_migrator
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    networks:
+      default: null
+  jlserver:
+    build:
+      context: F:\JointLessonSystem\JLServer
+      dockerfile: JLServer\Dockerfile
+    container_name: jl_server
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:5000
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 5000
+      published: "5000"
+      protocol: tcp
+  mongodb:
+    container_name: jl_mongo
+    image: mongo
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 27017
+      published: "27017"
+      protocol: tcp
+  redisdb:
+    container_name: jl_redis
+    image: redis
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 6379
+      published: "6379"
+      protocol: tcp
+  sqldb:
+    build:
+      context: F:\JointLessonSystem\JLServer
+      dockerfile: docker\mssql\Dockerfile-Debug
+    container_name: jl_mssql
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Your_password123
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 1433
+      published: "1433"
+      protocol: tcp
+    volumes:
+    - type: volume
+      source: database-data
+      target: /var/opt/mssql
+      volume: {}
+networks:
+  default:
+    name: dockercompose6984636504171924367_default
+volumes:
+  database-data:
+    name: dockercompose6984636504171924367_database-data

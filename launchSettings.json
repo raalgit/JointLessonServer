@@ -1,0 +1,18 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "jlserver",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "jlserver": "StartDebugging",
+        "mongodb": "StartWithoutDebugging",
+        "sqldb": "StartWithoutDebugging",
+        "redisdb": "StartWithoutDebugging",
+        "jlmigrator": "StartDebugging"
+      }
+    }
+  }
+}

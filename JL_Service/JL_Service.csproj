@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.19.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.19.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JL_ApiModels\JL_ApiModels.csproj" />
+    <ProjectReference Include="..\JL_MongoDB\JL_MongoDB.csproj" />
+    <ProjectReference Include="..\JL_MSSQLServer\JL_MSSQLServer.csproj" />
+    <ProjectReference Include="..\JL_Redis\JL_Redis.csproj" />
+    <ProjectReference Include="..\JL_SignalR\JL_SignalR.csproj" />
+    <ProjectReference Include="..\JL_Utility\JL_Utility.csproj" />
+  </ItemGroup>
+
+</Project>

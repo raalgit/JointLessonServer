@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>4b4c1b3a-d9d1-4184-8e27-3b488753072c</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+	<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JL_ApiModels\JL_ApiModels.csproj" />
+    <ProjectReference Include="..\JL_CacheAccess\JL_CacheAccess.csproj" />
+    <ProjectReference Include="..\JL_Migrator\JL_Migrator.csproj" />
+    <ProjectReference Include="..\JL_MSSQLServer\JL_MSSQLServer.csproj" />
+    <ProjectReference Include="..\JL_Redis\JL_Redis.csproj" />
+    <ProjectReference Include="..\JL_Service\JL_Service.csproj" />
+    <ProjectReference Include="..\JL_SignalR\JL_SignalR.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings-Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

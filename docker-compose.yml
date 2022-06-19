@@ -1,0 +1,45 @@
+version: '3.0'
+
+services:
+  jlserver:
+    container_name: jl_server
+    build:
+      context: .
+      dockerfile: JLServer\Dockerfile
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_URLS=http://+:5000
+    ports:
+        - "5000:5000"
+  jlmigrator:
+    container_name: jl_migrator
+    build:
+      context: .
+      dockerfile: JL_Migrator\Dockerfile
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+  mongodb:
+    container_name: jl_mongo
+    image: mongo
+    ports:
+        - "27017:27017"
+  sqldb:
+    build: 
+        context: .
+        dockerfile: docker\mssql\Dockerfile-Debug
+    container_name: jl_mssql
+    environment:
+      SA_PASSWORD: "Your_password123"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - database-data:/var/opt/mssql
+    ports:
+        - "1433:1433"
+  redisdb:
+    container_name: jl_redis
+    image: redis
+    ports:
+        - "6379:6379"
+
+volumes:
+    database-data:

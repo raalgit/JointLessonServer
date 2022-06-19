@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JL_ApiModels\JL_ApiModels.csproj" />
+    <ProjectReference Include="..\JL_Redis\JL_Redis.csproj" />
+    <ProjectReference Include="..\JL_Service\JL_Service.csproj" />
+    <ProjectReference Include="..\JL_SignalR\JL_SignalR.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Auth\" />
+    <Folder Include="Editor\" />
+    <Folder Include="Teacher\" />
+    <Folder Include="User\" />
+  </ItemGroup>
+
+</Project>

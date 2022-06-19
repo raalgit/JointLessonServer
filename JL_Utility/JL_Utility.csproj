@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JL_MongoDB\JL_MongoDB.csproj" />
+    <ProjectReference Include="..\JL_MSSQLServer\JL_MSSQLServer.csproj" />
+  </ItemGroup>
+
+</Project>
