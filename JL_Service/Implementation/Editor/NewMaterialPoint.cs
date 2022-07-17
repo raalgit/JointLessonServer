@@ -36,8 +36,7 @@ namespace JL_Service.Implementation.Editor
 
             if (req.ManualData == null) throw new PointException("Материал не может быть пустым", _logger);
 
-            var manualJsonBuffer = JsonSerializer.SerializeToUtf8Bytes<ManualData>(req.ManualData);
-            Stream stream = new MemoryStream(manualJsonBuffer);
+            Stream stream = new MemoryStream(req.ManualData);
             var fileId = await _fileUtility.CreateNewFileAsync(stream, req.OriginalName, "jl");
 
             var manual = new Manual()

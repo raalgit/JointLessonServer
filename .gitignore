@@ -1,0 +1,31 @@
+# spec files
+.suo
+.user
+.v1
+.v2
+.*
+!/.gitignore
+
+# vs
+*.[Oo]bj
+*.user
+*.suo
+*.log
+*.lib
+_ReSharper.*
+bin
+obj
+packages
+
+# mysql
+mysql-data
+
+# build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Pp]ackages/
+[Pp]ackage/
+[Bb]in/
+[Ll]og/

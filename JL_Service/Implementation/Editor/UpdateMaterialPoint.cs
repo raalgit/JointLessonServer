@@ -38,8 +38,7 @@ namespace JL_Service.Implementation.Editor
 
             if (req.ManualData == null) throw new PointException("Материал не может быть пустым", _logger);
 
-            var manualJsonBuffer = JsonSerializer.SerializeToUtf8Bytes<ManualData>(req.ManualData);
-            Stream stream = new MemoryStream(manualJsonBuffer);
+            Stream stream = new MemoryStream(req.ManualData);
 
             var originalFileData = _fileDataRepository.GetById(req.OriginalFileDataId) 
                 ?? throw new PointException($"Не удалось найти файл по номеру <{req.OriginalFileDataId}>", _logger);
@@ -50,8 +49,9 @@ namespace JL_Service.Implementation.Editor
             
             fileData.FileDataId = updatedFileId;
             _manualRepository.Update(fileData);
-
             response.Message = $"Материал {fileData.Title} успешно обновлен. Новый номер файла {fileData.FileDataId}";
+
+            stream.Dispose();
             return response;
         }
     }

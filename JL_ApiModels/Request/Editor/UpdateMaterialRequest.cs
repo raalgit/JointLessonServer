@@ -7,6 +7,6 @@ namespace JL_ApiModels.Request.Editor
     {
         public string OriginalName { get; set; }
         public int OriginalFileDataId { get; set; }
-        public ManualData? ManualData { get; set; }
+        public byte[] ManualData { get; set; }
     }
 }

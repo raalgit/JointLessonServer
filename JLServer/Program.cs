@@ -22,7 +22,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthentication(o => o.DefaultScheme = SchemesNamesConst.TokenAuthenticationDefaultScheme);
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? throw new NullReferenceException("ASPNETCORE_ENVIRONMENT");
 var configuration = JLConfigurationManager.GetConfiguration(environment);
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ApplicationContext>(options => 
+options.UseMySql(configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 11))));
 builder.Services.AddIRepository();
 builder.Services.AddSignalR();
 //builder.Services.AddScoped<IUserIdProvider, SignalRUserProvider>();

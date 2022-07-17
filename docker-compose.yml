@@ -1,4 +1,4 @@
-version: '3.0'
+version: '3.4'
 
 services:
   jlserver:
@@ -11,6 +11,7 @@ services:
         - ASPNETCORE_URLS=http://+:5000
     ports:
         - "5000:5000"
+
   jlmigrator:
     container_name: jl_migrator
     build:
@@ -18,23 +19,28 @@ services:
       dockerfile: JL_Migrator\Dockerfile
     environment:
         - ASPNETCORE_ENVIRONMENT=Development
+
   mongodb:
     container_name: jl_mongo
     image: mongo
     ports:
         - "27017:27017"
+
   sqldb:
-    build: 
-        context: .
-        dockerfile: docker\mssql\Dockerfile-Debug
-    container_name: jl_mssql
+    container_name: jl_mysql
+    image: mysql
+    restart: always
     environment:
-      SA_PASSWORD: "Your_password123"
-      ACCEPT_EULA: "Y"
+      MYSQL_ROOT_PASSWORD: raal
+      MYSQL_USER: root
+      MYSQL_PASSWORD: raal
+      MYSQL_DATABASE: JointLessonDB
     volumes:
-      - database-data:/var/opt/mssql
+        - ./mysql-data:/var/lib/mysql
+        - ./mysql-initdb:/docker-entrypoint-initdb.d
     ports:
-        - "1433:1433"
+        - "3306:3306"
+
   redisdb:
     container_name: jl_redis
     image: redis
@@ -43,3 +49,5 @@ services:
 
 volumes:
     database-data:
+    mysql-data:
+    mysql-initdb:

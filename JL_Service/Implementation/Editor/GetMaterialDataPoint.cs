@@ -34,19 +34,8 @@ namespace JL_Service.Implementation.Editor
             var fileBytes = await _fileUtility.GetFileAsBytesById(fileData.MongoId)
                 ?? throw new PointException($"не удалось получить данные файла <{req}>", _logger);
 
-            using (Stream stream = new MemoryStream(fileBytes))
-            {
-                try
-                {
-                    var manual = await JsonSerializer.DeserializeAsync<ManualData>(stream);
-                    response.ManualData = manual;
-                }
-                catch (Exception ex)
-                {
-                    throw new PointException($"не удалось десериализовать файл <{req}>", _logger);
-                }
-            }
-            
+            response.ManualData = fileBytes;
+            response.ShowMessage = true;
             response.Message = $"Данные материала {fileData.OriginalName} получены";
             return response;
         }

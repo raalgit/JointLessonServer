@@ -1,8 +1,8 @@
 ﻿using FluentMigrator.Runner;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MySqlConnector;
 using System.Reflection;
 
 namespace JL_Migrator
@@ -81,7 +81,7 @@ namespace JL_Migrator
                     .AddLogging(x => x.AddFluentMigratorConsole())
                     .AddFluentMigratorCore()
                     .ConfigureRunner(x => x
-                        .AddSqlServer2016()
+                        .AddMySql5()
                         .WithGlobalConnectionString(connectionString)
                         .ScanIn(Assembly.GetExecutingAssembly()).For.All());
 
@@ -127,17 +127,17 @@ namespace JL_Migrator
             try
             {
                 Console.WriteLine("Connecting to: {0}", connectionString);
-                using (var connection = new SqlConnection(connectionString))
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
+                    connection.Open();
                     var query = "select 1";
                     Console.WriteLine("Executing: {0}", query);
 
-                    var command = new SqlCommand(query, connection);
-
-                    connection.Open();
+                    var command = new MySqlCommand(query, connection);
                     Console.WriteLine("SQL Connection successful.");
 
                     command.ExecuteScalar();
+                    connection.Close();
                     Console.WriteLine("SQL Query execution successful.");
                     return true;
                 }

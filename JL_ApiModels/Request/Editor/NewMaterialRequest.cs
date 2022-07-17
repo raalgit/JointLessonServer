@@ -6,6 +6,6 @@ namespace JL_ApiModels.Request.Editor
     public class NewMaterialRequest : IRequest
     {
         public string OriginalName { get; set; }
-        public ManualData? ManualData { get; set; }
+        public byte[] ManualData { get; set; }
     }
 }
