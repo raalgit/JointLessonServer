@@ -27,5 +27,6 @@ namespace JL_MSSQLServer
         public DbSet<FileData> FileDatas { get; set; }
         public DbSet<SignalUserConnection> SignalUserConnections { get; set; }
         public DbSet<UserRemoteAccess> UserRemoteAccesses { get; set; }
+        public DbSet<UserGroup> UserGroups { get; set; }
     }
 }

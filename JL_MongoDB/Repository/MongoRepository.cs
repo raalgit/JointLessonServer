@@ -20,7 +20,7 @@ namespace JL_MongoDB.Repository
         {
             var fmt = "yyyy-MM-dd HH:mm:ss.fffffff";
             var now = DateTime.Now;
-            return now.ToString(fmt) + fileExtension;
+            return Path.ChangeExtension(now.ToString(fmt), fileExtension);
         }
 
         public async Task<string> UploadFileAsync(Stream fileStream, string fileName)
@@ -29,15 +29,24 @@ namespace JL_MongoDB.Repository
             return Convert.ToString(id) ?? throw new NullReferenceException(nameof(id));
         }
 
-        public async Task DeleteFileAsync(string mongoId)
+        public async Task<bool> TryDeleteFileAsync(string mongoId)
         {
             var objectId = MongoDB.Bson.ObjectId.Parse(mongoId);
-            await gridFS.DeleteAsync(objectId);
+
+            try
+            {
+                await gridFS.DeleteAsync(objectId);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public async Task<string> ChangeFileAsync(string mongoId, Stream newFileStream, string newFileName)
         {
-            await DeleteFileAsync(mongoId);
+            await TryDeleteFileAsync(mongoId);
             return await UploadFileAsync(newFileStream, newFileName);
         }
 

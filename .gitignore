@@ -15,10 +15,15 @@
 _ReSharper.*
 bin
 obj
+OBJ
 packages
 
 # mysql
 mysql-data
+
+# docker data
+*.dgspec.json
+*.g.props
 
 # build results
 [Dd]ebug/

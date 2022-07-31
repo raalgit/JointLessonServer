@@ -12,7 +12,7 @@ namespace JL_MongoDB.Repository
         public Task<byte[]> GetFileBytesByIdAsync(string mongoId);
         public Task<string> UploadFileAsync(Stream fileStream, string fileName);
         public Task<Stream> DownloadFileByIdAsync(string mongoId);
-        public Task DeleteFileAsync(string mongoId);
+        public Task<bool> TryDeleteFileAsync(string mongoId);
         public Task<string> ChangeFileAsync(string mongoId, Stream newFileStream, string newFileName);
     }
 }

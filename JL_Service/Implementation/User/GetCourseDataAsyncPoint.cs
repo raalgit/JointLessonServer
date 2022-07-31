@@ -14,12 +14,14 @@ namespace JL_Service.Implementation.User
         private readonly ILessonRepository _lessonRepository;
         private readonly ICourseTeacherRepository _courseTeacherRepository;
         private readonly IGroupAtCourseRepository _groupAtCourseRepository;
+        private readonly IGroupRepository _groupRepository;
         private readonly IUserGroupRepository _userGroupRepository;
         private readonly IUserRepository _userRepository;
         private readonly IJLLogger _logger;
 
         public GetCourseDataAsyncPoint(
             ILessonRepository _lessonRepository,
+            IGroupRepository _groupRepository,
             ICourseTeacherRepository _courseTeacherRepository,
             IGroupAtCourseRepository _groupAtCourseRepository,
             IUserGroupRepository _userGroupRepository,
@@ -32,6 +34,7 @@ namespace JL_Service.Implementation.User
             this._userGroupRepository = _userGroupRepository;
             this._userRepository = _userRepository;
             this._lessonRepository = _lessonRepository;
+            this._groupRepository = _groupRepository;
             this._logger = _logger;
         }
 
@@ -50,12 +53,14 @@ namespace JL_Service.Implementation.User
             var getGroupsDataQuery = from grpAtCourse in _groupAtCourseRepository.Get()
                                      join userGroup in _userGroupRepository.Get() on grpAtCourse.GroupId equals userGroup.GroupId
                                      join user in _userRepository.Get() on userGroup.UserId equals user.Id
+                                     join grp in _groupRepository.Get() on grpAtCourse.GroupId equals grp.Id
                                      where
                                      grpAtCourse.CourseId == req
                                      select new
                                      {
                                          grpAtCourse,
-                                         user
+                                         user,
+                                         grp
                                      };
 
             var groupsData = await getGroupsDataQuery.ToListAsync();
@@ -78,6 +83,7 @@ namespace JL_Service.Implementation.User
                     activeGroupsAtCourse.Count > 0 && activeGroupsAtCourse.Any(x => studentGroups.Contains(x.GroupId));
             }
 
+            response.CourseGroups = groupsData.Select(x => x.grp).Distinct().ToList();
             response.IsTeacher = isTeacher;
             response.ShowMessage = true;
             response.Message = $"Данные по курсу получены";

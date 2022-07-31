@@ -12,11 +12,19 @@ namespace JL_Service.Implementation
             this._context = _context;
         }
 
-        public Task<TRes> Start(TReq req, UserSettings userSettings)
+        public async Task<TRes> Start(TReq req, UserSettings userSettings)
         {
-            var resp = Execute(req, userSettings);
+            var resp = await Execute(req, userSettings);
 
-            _context.SaveChanges();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
             return resp;
         }
 

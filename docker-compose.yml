@@ -31,13 +31,12 @@ services:
     image: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: raal
-      MYSQL_USER: root
-      MYSQL_PASSWORD: raal
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: JointLessonDB
     volumes:
-        - ./mysql-data:/var/lib/mysql
-        - ./mysql-initdb:/docker-entrypoint-initdb.d
+        - .docker/init.sql:/docker-entrypoint-initdb.d/setup.sql
+        - db_data:/var/lib/mysql
     ports:
         - "3306:3306"
 
@@ -48,6 +47,4 @@ services:
         - "6379:6379"
 
 volumes:
-    database-data:
-    mysql-data:
-    mysql-initdb:
+    db_data:
